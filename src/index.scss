@@ -9,6 +9,16 @@ $secondary-clr: #ffffff;
     font-size: 60px;
     color: rgba(175, 47, 47, 0.85);
   }
+  .inline-block {
+    display: inline-block;
+  }
+  .section {
+    padding: 20px;
+    vertical-align: top;
+  }
+  .todo-task {
+    text-align: left;
+  }
   .new-todo {
     padding:16px 16px 16px 60px;
     font-size: 24px;
