@@ -13,11 +13,26 @@ $secondary-clr: #ffffff;
     display: inline-block;
   }
   .section {
-    padding: 20px;
+    padding: 4px 20px;
     vertical-align: top;
+    width: 250px;
+    h1 {
+      margin:0;
+    }
+    .todo-task {
+      text-align: left;
+      .task {
+        display: flex;
+        padding:8px 4px;
+        .task-item {
+          flex-grow: 2;
+          margin: 0;
+        }
+      }
+    }
   }
-  .todo-task {
-    text-align: left;
+  .clear-btn {
+    padding:10px 8px;
   }
   .new-todo {
     padding:16px 16px 16px 60px;

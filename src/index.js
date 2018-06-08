@@ -10,6 +10,8 @@ class TodoApp extends React.Component {
       completedTask: []
     }
     this.taskComplete = this.taskComplete.bind(this);
+    this.removeTask = this.removeTask.bind(this);
+    this.clearAll = this.clearAll.bind(this);
   }
 
   handleKeyPress(e) {
@@ -31,6 +33,19 @@ class TodoApp extends React.Component {
     console.log(this.state.completedTask);
   }
 
+  removeTask(text) {
+    const items = this.state.completedTask;
+    this.setState({ completedTask: items.filter(item => item.text !== text) });
+    console.log(this.state.completedTask);
+  }
+
+  clearAll() {
+    this.setState({
+      itemArray: [],
+      completedTask: []
+    })
+  }
+
   render() {
     return (
       <div className="container">
@@ -38,18 +53,19 @@ class TodoApp extends React.Component {
         <div>
           <input type="text" name="todo" id="new-todo" className="new-todo" placeholder="what needs to be done?" onKeyPress={this.handleKeyPress.bind(this)} />
         </div>
+        <div className="clear-btn" onClick={this.clearAll}>
+          <button type="button">Clear all</button>
+        </div>
         <div className="inline-block section">
           <h1>Active tasks</h1>
           <div className="todo-task">
             {this.state.itemArray.map((item, index) => {
               return (
-                <div className="box" key={index}>
-                  <div>
-                    <p>{item.text}</p>
-                    <button type="button" className="close inline-block" onClick={() => this.taskComplete(item.text)} aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
+                <div className="task" key={index}>
+                  <p className="task-item">{item.text}</p>
+                  <button type="button" className="inline-block" onClick={() => this.taskComplete(item.text)} aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
               )
             })}
@@ -57,30 +73,22 @@ class TodoApp extends React.Component {
         </div>
         <div className="inline-block section">
           <h1>Completed tasks</h1>
-          <CompletedTask items={this.state.completedTask} />
+          <div className="todo-task">
+            {this.state.completedTask.map((item, index) => {
+              return (
+                <div className="task" key={index}>
+                  <p className="task-item">{item.text}</p>
+                  <button type="button" className="inline-block" onClick={() => this.removeTask(item.text)} aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
     )
   }
-}
-
-function CompletedTask(props) {
-  return (
-    <div>
-      {props.items.map((item, index) => {
-        return (
-          <div className="box" key={index}>
-            <div>
-              <p>{item.text}</p>
-              <button type="button" className="close inline-block" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          </div>
-        )
-      })}
-    </div>
-  )
 }
 
 ReactDOM.render(<TodoApp />, document.getElementById('root'))
